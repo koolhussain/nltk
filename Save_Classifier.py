@@ -1,4 +1,5 @@
 import nltk
+import pickle
 import random
 from nltk.corpus import movie_reviews
 
@@ -31,5 +32,10 @@ features = [(find_features(rev), category) for (rev, category) in docs]
 training_set = features[:1500]
 testing_set = features[1500:]
 classifier = nltk.NaiveBayesClassifier.train(training_set)
+#saving the Classifier
+save_classifier = open("Naive_Bayes_Classifier.pickle","wb")
+pickle.dump(classifier, save_classifier)
+save_classifier.close()
+
 print("Classifier Accuracy Present:",(nltk.classify.accuracy(classifier, testing_set))*100)
 classifier.show_most_informative_features(15)
